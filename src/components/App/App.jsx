@@ -1,14 +1,13 @@
-// src/App.jsx
 import React from 'react';
-import ContactForm from '../ContactForm/ContactForm';
-import ContactList from '../ContactList/ContactList';
+import styles from './App.module.css'; // Importă stilurile din CSS Module
+import ContactForm from '../ContactForm/ContactForm'; // Asigură-te că importurile sunt corecte
 import Filter from '../Filter/Filter';
-import './App.module.css'; // Importăm fișierul CSS module global
+import ContactList from '../ContactList/ContactList';
 
 const App = () => {
   return (
-    <div className="App">
-      <h1 className="title">Phonebook</h1>
+    <div className={styles.App}> {/* Folosește CSS Module pentru clasa App */}
+      <h1 className={styles.title}>Phonebook</h1> {/* Folosește CSS Module pentru titlu */}
       <ContactForm />
       <Filter />
       <ContactList />

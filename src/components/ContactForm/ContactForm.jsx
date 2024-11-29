@@ -1,39 +1,19 @@
-// src/components/ContactForm/ContactForm.jsx
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
-import { nanoid } from 'nanoid';
-import './ContactForm.module.css';
+import styles from './ContactForm.module.css'; // Importă stilurile din CSS Module
 
-const ContactForm = () => {
+const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items); // Accesăm array-ul efectiv
 
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    // Verificăm dacă numele există deja
-    if (contacts.some(contact => contact.name === name)) {
-      alert(`${name} is already in contacts.`);
-      return;
-    }
-
-    // Adăugăm contactul
-    const newContact = {
-      id: nanoid(),
-      name,
-      number,
-    };
-
-    dispatch(addContact(newContact));
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSubmit({ name, number });
     setName('');
     setNumber('');
   };
 
   return (
-    <form className="ContactForm" onSubmit={handleSubmit}>
+    <form className={styles.ContactForm} onSubmit={handleSubmit}> {/* Aplică stilul din module.css */}
       <label>
         Name
         <input
