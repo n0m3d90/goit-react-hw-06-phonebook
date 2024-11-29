@@ -7,6 +7,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('./img/natural.jpg');
+  background-size: cover;
+
 }
 
 code {
@@ -22,7 +25,10 @@ h5,
 h6,
 p,
 ul {
-  margin: 0;
+  display: flex;
+  justify-content: center;
+  margin: 100px;
+  color: black;
 }
 
 ul {

@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
-import styles from './ContactForm.module.css'; // Importă stilurile din CSS Module
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
+import styles from './ContactForm.module.css'; // Import CSS Module
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.items);
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ name, number });
+    if (contacts.some(contact => contact.name === name)) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+    dispatch(addContact({ name, number }));
     setName('');
     setNumber('');
   };
 
   return (
-    <form className={styles.ContactForm} onSubmit={handleSubmit}> {/* Aplică stilul din module.css */}
-      <label>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <label className={styles.formLabel}>
         Name
         <input
+          className={styles.formInput}
           type="text"
           name="name"
           value={name}
@@ -24,9 +33,10 @@ const ContactForm = ({ onSubmit }) => {
           required
         />
       </label>
-      <label>
+      <label className={styles.formLabel}>
         Number
         <input
+          className={styles.formInput}
           type="tel"
           name="number"
           value={number}
@@ -34,7 +44,9 @@ const ContactForm = ({ onSubmit }) => {
           required
         />
       </label>
-      <button type="submit">Add contact</button>
+      <button className={styles.addContactBtn} type="submit">
+        Add contact
+      </button>
     </form>
   );
 };
