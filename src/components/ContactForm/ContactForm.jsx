@@ -1,21 +1,24 @@
+
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contactsSlice';
-import styles from './ContactForm.module.css'; // Import CSS Module
+import { nanoid } from 'nanoid'; 
+import styles from './ContactForm.module.css';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (contacts.some(contact => contact.name === name)) {
-      alert(`${name} is already in contacts`);
-      return;
-    }
-    dispatch(addContact({ name, number }));
+    const newContact = {
+      id: nanoid(),  
+      name,
+      number,
+    };
+
+    dispatch(addContact(newContact));  
     setName('');
     setNumber('');
   };
@@ -25,26 +28,26 @@ const ContactForm = () => {
       <label className={styles.formLabel}>
         Name
         <input
-          className={styles.formInput}
           type="text"
           name="name"
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
+          className={styles.formInput}
           required
         />
       </label>
       <label className={styles.formLabel}>
         Number
         <input
-          className={styles.formInput}
           type="tel"
           name="number"
           value={number}
-          onChange={e => setNumber(e.target.value)}
+          onChange={(e) => setNumber(e.target.value)}
+          className={styles.formInput}
           required
         />
       </label>
-      <button className={styles.addContactBtn} type="submit">
+      <button type="submit" className={styles.addContactBtn}>
         Add contact
       </button>
     </form>

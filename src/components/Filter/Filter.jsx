@@ -1,8 +1,8 @@
-// src/components/Filter/Filter.jsx
+
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setFilter } from '../../redux/filterSlice';
-import styles from './Filter.module.css'; // Importăm fișierul CSS module
+import styles from './Filter.module.css'; 
 
 const Filter = () => {
   const dispatch = useDispatch();
